@@ -13,11 +13,11 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.ChatCompletion;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var config = new ConfigurationBuilder()
     .AddUserSecrets<Program>()
     .AddEnvironmentVariables()
     .Build();
-
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -101,6 +101,15 @@ app.MapGet("/Hotels/{hotelId}/Bookings/{min_date}", async (int hotelId, DateTime
     .WithOpenApi();
 
 
+// app.MapPost("/Chat", async Task<string> (HttpRequest request) =>
+// {
+//     var message = await Task.FromResult(request.Form["message"]);
+    
+//     return "This endpoint is not yet available.";
+// })
+//     .WithName("Chat")
+//     .WithOpenApi();
+
 app.MapPost("/Chat", async Task<string> (HttpRequest request) =>
 {
     var message = await Task.FromResult(request.Form["message"]);
@@ -115,6 +124,7 @@ app.MapPost("/Chat", async Task<string> (HttpRequest request) =>
 })
     .WithName("Chat")
     .WithOpenApi();
+
 
 app.MapGet("/Vectorize", async (string text, [FromServices] IVectorizationService vectorizationService) =>
 {

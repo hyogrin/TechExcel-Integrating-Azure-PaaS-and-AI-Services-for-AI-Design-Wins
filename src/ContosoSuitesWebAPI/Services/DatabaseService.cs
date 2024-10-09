@@ -36,8 +36,8 @@ public class DatabaseService : IDatabaseService
     }
 
     [KernelFunction]
-    [Description("Get all bookings for a single hotel.")]
-    public async Task<IEnumerable<Booking>> GetBookingsForHotel([Description("The ID of the hotel")] int hotelId)
+    [Description("Get all hotels.")]
+    public async Task<IEnumerable<Booking>> GetBookingsForHotel(int hotelId)
     {
         var sql = "SELECT BookingID, CustomerID, HotelID, StayBeginDate, StayEndDate, NumberOfGuests FROM dbo.Booking WHERE HotelID = @HotelID";
         using var conn = new SqlConnection(
@@ -65,6 +65,8 @@ public class DatabaseService : IDatabaseService
         return bookings;
     }
 
+    [KernelFunction]
+    [Description("Get all hotels.")]
     public async Task<IEnumerable<Booking>> GetBookingsByHotelAndMinimumDate(int hotelId, DateTime dt)
     {
         var sql = "SELECT BookingID, CustomerID, HotelID, StayBeginDate, StayEndDate, NumberOfGuests FROM dbo.Booking WHERE HotelID = @HotelID AND StayBeginDate >= @StayBeginDate";
@@ -94,6 +96,8 @@ public class DatabaseService : IDatabaseService
         return bookings;
     }
 
+    [KernelFunction]
+    [Description("Get all hotels.")]
     public async Task<IEnumerable<Booking>> GetBookingsMissingHotelRooms()
     {
         var sql = """
@@ -137,6 +141,8 @@ public class DatabaseService : IDatabaseService
         return bookings;
     }
 
+    [KernelFunction]
+    [Description("Get all hotels.")]    
     public async Task<IEnumerable<Booking>> GetBookingsWithMultipleHotelRooms()
     {
         var sql = """
@@ -179,6 +185,5 @@ public class DatabaseService : IDatabaseService
   
         return bookings;
     }
-
 
 }
